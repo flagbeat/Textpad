@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/color-v23/abc_color_highlight_material.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/color-v23/abc_tint_spinner.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/res/color-v23/abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/color-v23/abc_btn_colored_text_material.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/res/color-v23/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/color-v23/abc_tint_switch_track.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/res/color-v23/abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/color-v23/abc_tint_btn_checkable.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/res/color-v23/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/color-v23/abc_tint_seek_thumb.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/color-v23/abc_tint_default.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/res/color-v23/abc_tint_default.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/color-v23/abc_tint_edittext.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/res/color-v23/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/color-v23/abc_btn_colored_borderless_text_material.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/res/color-v23/abc_btn_colored_borderless_text_material.xml"
+    }
+]

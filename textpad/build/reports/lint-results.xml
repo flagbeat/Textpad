@@ -1,0 +1,1546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="5" by="lint 4.1.3">
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        severity="Warning"
+        message="Lint found an issue registry (`androidx.annotation.experimental.lint.ExperimentalIssueRegistry`) which did not specify the Lint API version it was compiled with.&#xA;&#xA;**This means that the lint checks are likely not compatible.**&#xA;&#xA;If you are the author of this lint check, make your lint `IssueRegistry` class contain&#xA;  override val api: Int = com.android.tools.lint.detector.api.CURRENT_API&#xA;or from Java,&#xA;  @Override public int getApi() { return com.android.tools.lint.detector.api.ApiKt.CURRENT_API; }&#xA;&#xA;If you are just using lint checks from a third party library you have no control over, you can disable these lint checks (if they misbehave) like this:&#xA;&#xA;    android {&#xA;        lintOptions {&#xA;            disable &quot;UnsafeExperimentalUsageError&quot;,&#xA;                    &quot;UnsafeExperimentalUsageWarning&quot;&#xA;        }&#xA;    }&#xA;"
+        category="Lint"
+        priority="10"
+        summary="Obsolete custom lint check"
+        explanation="Lint can be extended with &quot;custom checks&quot;: additional checks implemented by developers and libraries to for example enforce specific API usages required by a library or a company coding style guideline.&#xA;&#xA;The Lint APIs are not yet stable, so these checks may either cause a performance degradation, or stop working, or provide wrong results.&#xA;&#xA;This warning flags custom lint checks that are found to be using obsolete APIs and will need to be updated to run in the current lint environment.&#xA;&#xA;It may also flag issues found to be using a **newer** version of the API, meaning that you need to use a newer version of lint (or Android Studio or Gradle plugin etc) to work with these checks."
+        includedVariants="debug"
+        excludedVariants="release">
+        <location
+            file="/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/380000889ca214510e444c2aff0b07c0/jetified-annotation-experimental-1.0.0/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        severity="Warning"
+        message="Lint found an issue registry (`androidx.appcompat.AppCompatIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 7 (4.0), current lint API level is 8 (4.1+)"
+        category="Lint"
+        priority="10"
+        summary="Obsolete custom lint check"
+        explanation="Lint can be extended with &quot;custom checks&quot;: additional checks implemented by developers and libraries to for example enforce specific API usages required by a library or a company coding style guideline.&#xA;&#xA;The Lint APIs are not yet stable, so these checks may either cause a performance degradation, or stop working, or provide wrong results.&#xA;&#xA;This warning flags custom lint checks that are found to be using obsolete APIs and will need to be updated to run in the current lint environment.&#xA;&#xA;It may also flag issues found to be using a **newer** version of the API, meaning that you need to use a newer version of lint (or Android Studio or Gradle plugin etc) to work with these checks."
+        includedVariants="debug"
+        excludedVariants="release">
+        <location
+            file="/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/8e0a164398b7d6dacc7a2fb7142be0c8/appcompat-1.2.0/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="CustomViewStyleable"
+        severity="Warning"
+        message="By convention, the custom view (`TextPad`) and the declare-styleable (`TextPadView`) should have the same name (various editor features rely on this convention)"
+        category="Correctness"
+        priority="6"
+        summary="Mismatched Styleable/Custom View Name"
+        explanation="The convention for custom views is to use a `declare-styleable` whose name matches the custom view class name. The IDE relies on this convention such that for example code completion can be offered for attributes in a custom view in layout XML resource files.&#xA;&#xA;(Similarly, layout parameter classes should use the suffix `_Layout`.)"
+        errorLine1="  val attributes = context.obtainStyledAttributes(attrs, R.styleable.TextPadView)"
+        errorLine2="                                                         ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/java/com/flagbeat/textpad/TextPad.kt"
+            line="111"
+            column="58"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `toUpperCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` **without specifying an explicit locale** is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is **not** `I`.&#xA;&#xA;If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="  defaultTagColor = &quot;#&quot; + Integer.toHexString(context.resources.getColor(R.color.hash_tag_color)).substring(2).toUpperCase()"
+        errorLine2="                                                                                                               ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/java/com/flagbeat/textpad/TextPad.kt"
+            line="106"
+            column="112"/>
+    </issue>
+
+    <issue
+        id="OldTargetApi"
+        severity="Warning"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details."
+        category="Correctness"
+        priority="6"
+        summary="Target SDK attribute is not targeting latest version"
+        explanation="When your application runs on a version of Android that is more recent than your `targetSdkVersion` specifies that it has been tested with, various compatibility modes kick in. This ensures that your application continues to work, but it may look out of place. For example, if the `targetSdkVersion` is less than 14, your app may get an option button in the UI.&#xA;&#xA;To fix this issue, set the `targetSdkVersion` to the highest available value. Then test your app to make sure everything works correctly. You may want to consult the compatibility notes to see what changes apply to each version you are adding support for: https://developer.android.com/reference/android/os/Build.VERSION_CODES.html as well as follow this guide:&#xA;https://developer.android.com/distribute/best-practices/develop/target-sdk.html"
+        url="https://developer.android.com/distribute/best-practices/develop/target-sdk.html"
+        urls="https://developer.android.com/distribute/best-practices/develop/target-sdk.html,https://developer.android.com/reference/android/os/Build.VERSION_CODES.html"
+        errorLine1="        targetSdkVersion 29"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build.gradle"
+            line="55"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;18dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/ic_format_bold_black_18dp.xml"
+            line="1"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;24dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/ic_format_color_fill_black_24dp.xml"
+            line="1"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;24dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/ic_format_color_text_black_24dp.xml"
+            line="1"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;24dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/ic_format_italic_black_24dp.xml"
+            line="1"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;24dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/ic_format_quote_black_24dp.xml"
+            line="1"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;24dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/ic_format_size_black_24dp.xml"
+            line="1"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;24dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/ic_format_strikethrough_black_24dp.xml"
+            line="1"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;24dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/ic_format_underlined_black_24dp.xml"
+            line="1"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `allowUndo` is only used in API level 23 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="        android:allowUndo=&quot;true&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="34"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `elevation` is only used in API level 21 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="        android:elevation=&quot;20dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="46"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Flag Tag&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="110"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Flag Member&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="128"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Clear the editor&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="146"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Undo&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="162"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Redo&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="178"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Bold&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="194"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Bold&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="211"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Italic&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="226"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Change bg&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="242"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Paint text&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="259"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Resize text&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="274"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Strikethrough&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="289"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Underline&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="304"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Highlight text&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="319"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="                    android:tooltipText=&quot;Quote&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="334"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `tooltipText` is only used in API level 26 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="            android:tooltipText=&quot;Decorate&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="353"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        severity="Warning"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        category="Correctness"
+        priority="5"
+        summary="Layout Inflation without a Parent"
+        explanation="When inflating a layout, avoid passing in null as the parent view, since otherwise any layout parameters on the root of the inflated layout will be ignored."
+        url="http://www.doubleencore.com/2013/05/layout-inflation-as-intended"
+        urls="http://www.doubleencore.com/2013/05/layout-inflation-as-intended"
+        errorLine1="  val chip = inflater.inflate(R.layout.suggestion_tag, null) as Chip"
+        errorLine2="                                                       ~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/java/com/flagbeat/textpad/TextPad.kt"
+            line="769"
+            column="56"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_refresh_black_18dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="153"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_undo_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="169"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_redo_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="185"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_format_clear_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="202"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_format_bold_black_18dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="218"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_format_italic_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="233"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_format_color_fill_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="251"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_format_color_text_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="266"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_format_size_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="281"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_format_strikethrough_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="296"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_format_underlined_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="311"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_highlight_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="326"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                        android:src=&quot;@drawable/ic_format_quote_black_24dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="343"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorDrawableCompat"
+        severity="Error"
+        message="When using VectorDrawableCompat, you need to use `app:srcCompat`"
+        category="Correctness"
+        priority="5"
+        summary="Using VectorDrawableCompat"
+        explanation="To use VectorDrawableCompat, you need to make two modifications to your project. First, set `android.defaultConfig.vectorDrawables.useSupportLibrary = true` in your `build.gradle` file, and second, use `app:srcCompat` instead of `android:src` to refer to vector drawables."
+        url="https://developer.android.com/guide/topics/graphics/vector-drawable-resources"
+        urls="https://developer.android.com/guide/topics/graphics/vector-drawable-resources,https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9"
+        errorLine1="                android:src=&quot;@drawable/ic_style_black_24dp&quot;"
+        errorLine2="                ~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="368"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="118"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="136"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="152"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="168"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/dark&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="184"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="201"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="217"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="232"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="250"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="265"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="280"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="295"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="310"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="325"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                        android:tint=&quot;@color/secondary_text&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="342"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        severity="Error"
+        message="Must use `app:tint` instead of `android:tint`"
+        category="Correctness"
+        priority="1"
+        summary="`app:tint` attribute should be used on `ImageView`"
+        explanation="`ImageView` uses `android:tint` instead of `app:tint`"
+        errorLine1="                android:tint=&quot;@color/dirty_white&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="367"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        severity="Warning"
+        message="Found bitmap drawable `res/drawable/at_the_rate_50.png` in densityless folder"
+        category="Usability:Icons"
+        priority="5"
+        summary="Image defined in density-independent drawable folder"
+        explanation="The res/drawable folder is intended for density-independent graphics such as shapes defined in XML. For bitmaps, move it to `drawable-mdpi` and consider providing higher and lower resolution versions in `drawable-ldpi`, `drawable-hdpi` and `drawable-xhdpi`. If the icon **really** is density independent (for example a solid color) you can place it in `drawable-nodpi`."
+        url="https://developer.android.com/guide/practices/screens_support.html"
+        urls="https://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/at_the_rate_50.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        severity="Warning"
+        message="Found bitmap drawable `res/drawable/avatar_big.png` in densityless folder"
+        category="Usability:Icons"
+        priority="5"
+        summary="Image defined in density-independent drawable folder"
+        explanation="The res/drawable folder is intended for density-independent graphics such as shapes defined in XML. For bitmaps, move it to `drawable-mdpi` and consider providing higher and lower resolution versions in `drawable-ldpi`, `drawable-hdpi` and `drawable-xhdpi`. If the icon **really** is density independent (for example a solid color) you can place it in `drawable-nodpi`."
+        url="https://developer.android.com/guide/practices/screens_support.html"
+        urls="https://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/avatar_big.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        severity="Warning"
+        message="Found bitmap drawable `res/drawable/bg_2.jpeg` in densityless folder"
+        category="Usability:Icons"
+        priority="5"
+        summary="Image defined in density-independent drawable folder"
+        explanation="The res/drawable folder is intended for density-independent graphics such as shapes defined in XML. For bitmaps, move it to `drawable-mdpi` and consider providing higher and lower resolution versions in `drawable-ldpi`, `drawable-hdpi` and `drawable-xhdpi`. If the icon **really** is density independent (for example a solid color) you can place it in `drawable-nodpi`."
+        url="https://developer.android.com/guide/practices/screens_support.html"
+        urls="https://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/bg_2.jpeg"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        severity="Warning"
+        message="Found bitmap drawable `res/drawable/ic_hastag_26px.png` in densityless folder"
+        category="Usability:Icons"
+        priority="5"
+        summary="Image defined in density-independent drawable folder"
+        explanation="The res/drawable folder is intended for density-independent graphics such as shapes defined in XML. For bitmaps, move it to `drawable-mdpi` and consider providing higher and lower resolution versions in `drawable-ldpi`, `drawable-hdpi` and `drawable-xhdpi`. If the icon **really** is density independent (for example a solid color) you can place it in `drawable-nodpi`."
+        url="https://developer.android.com/guide/practices/screens_support.html"
+        urls="https://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/drawable/ic_hastag_26px.png"/>
+    </issue>
+
+    <issue
+        id="SmallSp"
+        severity="Warning"
+        message="Avoid using sizes smaller than `12sp`: `10sp`"
+        category="Usability"
+        priority="4"
+        summary="Text size is too small"
+        explanation="Avoid using sizes smaller than 12sp."
+        errorLine1="        android:textSize=&quot;10sp&quot;/>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/row_people_tag.xml"
+            line="51"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="11"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="115"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="131"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="149"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="165"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="181"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="198"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="214"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="229"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="247"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="262"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="277"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="292"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="307"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="322"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="339"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="            &lt;ImageView"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="363"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        severity="Warning"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        category="Accessibility"
+        priority="3"
+        summary="Keyboard inaccessible widget"
+        explanation="A widget that is declared to be clickable but not declared to be focusable is not accessible via the keyboard. Please add the `focusable` attribute as well."
+        errorLine1="                    android:clickable=&quot;true&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="127"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        severity="Warning"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        category="Accessibility"
+        priority="3"
+        summary="Keyboard inaccessible widget"
+        explanation="A widget that is declared to be clickable but not declared to be focusable is not accessible via the keyboard. Please add the `focusable` attribute as well."
+        errorLine1="                    android:clickable=&quot;true&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="145"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        severity="Warning"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        category="Accessibility"
+        priority="3"
+        summary="Keyboard inaccessible widget"
+        explanation="A widget that is declared to be clickable but not declared to be focusable is not accessible via the keyboard. Please add the `focusable` attribute as well."
+        errorLine1="                    android:clickable=&quot;true&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="161"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        severity="Warning"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        category="Accessibility"
+        priority="3"
+        summary="Keyboard inaccessible widget"
+        explanation="A widget that is declared to be clickable but not declared to be focusable is not accessible via the keyboard. Please add the `focusable` attribute as well."
+        errorLine1="                    android:clickable=&quot;true&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="177"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        severity="Warning"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        category="Accessibility"
+        priority="3"
+        summary="Keyboard inaccessible widget"
+        explanation="A widget that is declared to be clickable but not declared to be focusable is not accessible via the keyboard. Please add the `focusable` attribute as well."
+        errorLine1="                    android:clickable=&quot;true&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="193"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        severity="Warning"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        category="Accessibility"
+        priority="3"
+        summary="Keyboard inaccessible widget"
+        explanation="A widget that is declared to be clickable but not declared to be focusable is not accessible via the keyboard. Please add the `focusable` attribute as well."
+        errorLine1="                    android:clickable=&quot;true&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="210"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;FlagTag&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="    android:text=&quot;FlagTag&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/chip_default.xml"
+            line="23"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Sumit Saurabh&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="        android:text=&quot;Sumit Saurabh&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/row_people_tag.xml"
+            line="36"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;\@sumitsaurabh&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="        android:text=&quot;\@sumitsaurabh&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/row_people_tag.xml"
+            line="48"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;#flagbeat&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="    android:text=&quot;#flagbeat&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/suggestion_tag.xml"
+            line="18"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Write Something on your flag&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="        android:hint=&quot;Write Something on your flag&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/src/main/res/layout/text_pad.xml"
+            line="26"
+            column="9"/>
+    </issue>
+
+</issues>

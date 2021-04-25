@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/interpolator-v21/mtrl_linear_out_slow_in.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/interpolator-v21/mtrl_linear_out_slow_in.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/interpolator-v21/mtrl_fast_out_linear_in.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/interpolator-v21/mtrl_fast_out_linear_in.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/interpolator-v21/mtrl_fast_out_slow_in.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/interpolator-v21/mtrl_fast_out_slow_in.xml"
+    }
+]

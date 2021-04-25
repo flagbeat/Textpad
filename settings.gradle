@@ -1,0 +1,2 @@
+include ':app', ':textpad'
+rootProject.name='Flagbeat EditText'

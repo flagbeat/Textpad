@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-w320dp-land-v13/values-w320dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/values-w320dp-land-v13/values-w320dp-land-v13.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,110",
+                        "endColumns": "54,61",
+                        "endOffsets": "105,167"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/values-w320dp-land-v13/values-w320dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/values-w320dp-land-v13/values-w320dp-land-v13.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,110",
+                        "endColumns": "54,61",
+                        "endOffsets": "105,167"
+                    }
+                }
+            ]
+        }
+    ]
+}

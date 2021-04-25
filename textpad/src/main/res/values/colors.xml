@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--<color name="primary">#F5F5F5</color>-->
+    <!--<color name="primary_dark">#E0E0E0</color>-->
+    <!--<color name="primary_light">#FFFFFF</color>-->
+    <!--<color name="accent">#9E9E9E</color>-->
+    <!--<color name="primary_text">#212121</color>-->
+    <!--<color name="secondary_text">#757575</color>-->
+    <!--<color name="icons">#FFFFFF</color>-->
+    <!--<color name="divider">#BDBDBD</color>-->
+
+
+    <!--<color name="primary">#00695C</color>-->
+    <!--<color name="primary_dark">#004D40</color>-->
+    <!--<color name="primary_darker">#004D40</color>-->
+    <!--<color name="primary_light">#91d7d1</color>-->
+    <!--<color name="accent">#009688</color>-->
+
+    <!--    <color name="primary">#263238</color>
+        <color name="primary_dark">#22262f</color>
+        <color name="primary_darker">#212518</color>
+        <color name="primary_light">#607D8B</color>
+        <color name="accent">#88607D8B</color>-->
+    <!--<color name="primary">#3B434D</color>-->
+    <!--<color name="primary_dark">#313B49</color>-->
+    <!--<color name="primary_darker">#22262f</color>-->
+    <!--<color name="primary_light">#525C66</color>-->
+    <!--<color name="accent">#52C1FF</color>-->
+    <!--<color name="accent1">#63CCB5</color>-->
+
+    <!--<color name="primary">#5697e8</color>-->
+    <!--<color name="primary_dark">#01579B</color>-->
+    <!--<color name="primary_darker">#01579B</color>-->
+    <!--<color name="primary_light">#dae1ea</color>-->
+    <!--<color name="accent">#feee4f</color>-->
+    <!--<color name="accent1">#63CCB5</color>-->
+
+    <!--<color name="primary">#00a6d6</color>-->
+    <!--<color name="primary_dark">#00629b</color>-->
+    <!--<color name="primary_darker">#22262f</color>-->
+    <!--<color name="primary_light">#525C66</color>-->
+    <!--<color name="accent">#52C1FF</color>-->
+    <!--<color name="accent1">#63CCB5</color>-->
+
+    <!--<color name="primary">#44355b</color>-->
+    <!--<color name="primary_dark">#31263e</color>-->
+    <!--<color name="primary_darker">#31263e</color>-->
+    <!--<color name="primary_light">#525C66</color>-->
+
+    <color name="primary">#662c4f</color>
+    <color name="primary_dark">#462539</color>
+    <color name="primary_darker">#25141e</color>
+    <color name="primary_light">#cb9eba</color>
+
+    <!--<color name="primary">#aa2200</color>-->
+    <!--<color name="primary_dark">#aa2200</color>-->
+    <!--<color name="primary_darker">#aa2200</color>-->
+    <!--<color name="primary_light">#F6A2A1</color>-->
+
+    <color name="accent">#673754</color>
+    <color name="colorAccent">#673754</color>
+    <color name="accent1">#63CCB5</color>
+
+    <!--    <color name="cardview_dark_background">#FF424242</color>-->
+    <!--    <color name="cardview_light_background">#FFFFFFFF</color>-->
+    <!--    <color name="cardview_shadow_end_color">#03000000</color>-->
+    <!--    <color name="cardview_shadow_start_color">#37000000</color>-->
+
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#616770</color>
+    <color name="tertiary_text">#90949c</color>
+    <color name="icons">#D0DDE3</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="light_grey_bg">#eeeeee</color>
+    <color name="menu_map_item_color">#22262f</color>
+    <color name="icon_tint_grey">#757575</color>
+
+
+    <color name="dirty_white">#F0F0F0</color>
+    <color name="material_drawer_primary_transparent">#88000000</color>
+    <color name="translucent">#bbffffff</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="black">#000000</color>
+    <color name="jet">#222222</color>
+    <color name="oil">#333333</color>
+    <color name="overlay_black_dark">#cc000000</color>
+    <color name="overlay_black">#aa222222</color>
+    <color name="overlay_black_light">#55222222</color>
+    <color name="overlay_blue_vlight">#10673754</color>
+    <color name="overlay_blue_light">#22673754</color>
+    <color name="overlay_blue_dark">#aa673754</color>
+    <color name="overlay_blue_vdark">#dd462539</color>
+    <color name="overlay_background_vlight">#10fbf7f9</color>
+    <color name="dark">#555555</color>
+    <color name="monsoon">#777777</color>
+    <color name="jumbo_bkp">#888888</color>
+    <color name="jumbo">#d3d3d3</color>
+    <color name="aluminum">#999999</color>
+    <color name="base">#AAAAAA</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="steel">#EEEEEE</color>
+    <color name="white">#FFFFFF</color>
+    <color name="dull_white">#FCFCFC</color>
+    <color name="dull_white_1">#F9F9F9</color>
+    <color name="grey_bg">#e9ebee</color>
+
+    <!--<color name="dark_red">#cb202d</color>-->
+    <color name="dark_red">#DB4437</color>
+    <color name="red">#de1d0f</color>
+    <color name="dark_yellow">#bf8d41</color>
+    <!--<color name="green">#3f7e00</color>-->
+    <color name="green">#0F9D58</color>
+    <!--<color name="blue">#1565c0</color>-->
+    <color name="blue">#4285F4</color>
+    <color name="very_light_grey">#f5f5f5</color>
+    <color name="fb_violet">#673754</color>
+    <color name="fb_yellow">#ffc153</color>
+    <color name="google_red">#dd4b39</color>
+
+    <color name="inc_green">#8EC3A7</color>
+    <color name="inc_red">#DC5356</color>
+    <color name="inc_blue">#5FB7E5</color>
+    <color name="inc_violet">#AB91C5</color>
+
+    <color name="shimmer_background">#dddddd</color>
+
+
+    <color name="rating_0">#CCCCCC</color>
+    <color name="rating_1">#CD1C26</color>
+    <color name="rating_2">#FF7800</color>
+    <color name="rating_3">#CDD614</color>
+    <color name="rating_4">#5BA829</color>
+    <color name="rating_5">#305D02</color>
+    <color name="hash_tag_color">#662C4F</color>
+
+</resources>

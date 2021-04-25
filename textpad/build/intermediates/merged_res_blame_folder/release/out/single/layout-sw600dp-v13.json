@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/layout-sw600dp-v13/design_layout_snackbar.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/layout-sw600dp-v13/design_layout_snackbar.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/layout-sw600dp-v13/mtrl_layout_snackbar.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/layout-sw600dp-v13/mtrl_layout_snackbar.xml"
+    }
+]

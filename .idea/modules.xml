@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Flagbeat_EditText.iml" filepath="$PROJECT_DIR$/.idea/modules/Flagbeat_EditText.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Flagbeat_EditText.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Flagbeat_EditText.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/textpad/Flagbeat_EditText.textpad.iml" filepath="$PROJECT_DIR$/.idea/modules/textpad/Flagbeat_EditText.textpad.iml" />
+    </modules>
+  </component>
+</project>

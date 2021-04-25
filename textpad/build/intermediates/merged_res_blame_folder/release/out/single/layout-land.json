@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/layout-land/material_clock_period_toggle_land.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/layout-land/material_clock_period_toggle_land.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/layout-land/mtrl_picker_header_dialog.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/layout-land/mtrl_picker_header_dialog.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/layout-land/material_timepicker.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/85bc523d77ea13d75b0985cdac978c6b/material-1.4.0-alpha02/res/layout-land/material_timepicker.xml"
+    }
+]

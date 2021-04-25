@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/68600a5be4367d49d50b69b04e4caf8f/core-1.3.2/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/layout-v21/notification_action.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/68600a5be4367d49d50b69b04e4caf8f/core-1.3.2/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/68600a5be4367d49d50b69b04e4caf8f/core-1.3.2/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/sumitsaurabh/data/workspace/flagbeat/plugins/flagbeat-edittext/textpad/build/intermediates/res/merged/release/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/sumitsaurabh/.gradle/caches/transforms-2/files-2.1/68600a5be4367d49d50b69b04e4caf8f/core-1.3.2/res/layout-v21/notification_action_tombstone.xml"
+    }
+]

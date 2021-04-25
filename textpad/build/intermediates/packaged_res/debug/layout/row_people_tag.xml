@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flag_selection_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/medium_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/margin_less"
+    android:paddingTop="@dimen/margin_less"
+    android:background="@drawable/textpad_round_bg"
+    android:layout_margin="@dimen/very_small_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/medium_margin">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar_big"
+        app:civ_border_color="@color/dirty_white"
+        app:civ_border_width="2dp"
+        android:layout_marginEnd="10dp"
+        app:civ_circle_background_color="@color/steel"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/avatar"
+        android:layout_toRightOf="@+id/avatar"
+        android:text="Sumit Saurabh"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/smaller_text_size" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_toEndOf="@+id/avatar"
+        android:layout_toRightOf="@+id/avatar"
+        android:text="\@sumitsaurabh"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/secondary_text"
+        android:textSize="10sp"/>
+</RelativeLayout>
