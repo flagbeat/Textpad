@@ -1,9 +1,13 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.github.dcendents.android-maven'  // Apply Maven Plugin
-apply plugin: 'com.jfrog.bintray'  // Apply Bintray Plugin
+//apply plugin: 'com.android.library'
+//apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'com.github.dcendents.android-maven'  // Apply Maven Plugin
+//apply plugin: 'com.jfrog.bintray'  // Apply Bintray Plugin
 
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
 ext {
     // The repository permissionName in Bintray dashboard
     bintrayRepo = 'Textpad'
@@ -25,7 +29,7 @@ ext {
     artifact = 'textpad'
 
     // The current version of the library
-    libraryVersion = '1.3.2'
+    libraryVersion = '1.3.5'
 
     // Library details
     libraryDescription = 'A library to simplify collecting user feedback.'
@@ -87,21 +91,36 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 }
 
-repositories {
-    mavenCentral()
-}
+//repositories {
+//    mavenCentral()
+//}
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
-    }
-}
 
-if (project.rootProject.file('local.properties').exists()) {
-    apply from: 'https://raw.githubusercontent.com/flagbeat/JCenter/master/installv1.gradle'
-    apply from: 'https://raw.githubusercontent.com/flagbeat/JCenter/master/bintrayv1.gradle'
+
+//buildscript {
+//    repositories {
+//        jcenter()
+//    }
+//    dependencies {
+//        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+//        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+//    }
+//}
+
+//if (project.rootProject.file('local.properties').exists()) {
+//    apply from: 'https://raw.githubusercontent.com/flagbeat/JCenter/master/installv1.gradle'
+//    apply from: 'https://raw.githubusercontent.com/flagbeat/JCenter/master/bintrayv1.gradle'
+//}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.flagbeat'
+                artifactId = 'textpad'
+                version = '1.3.5'
+            }
+        }
+    }
 }
