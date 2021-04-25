@@ -1,0 +1,107 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.dcendents.android-maven'  // Apply Maven Plugin
+apply plugin: 'com.jfrog.bintray'  // Apply Bintray Plugin
+
+ext {
+    // The repository permissionName in Bintray dashboard
+    bintrayRepo = 'Textpad'
+
+    // The package permissionName of the Bintray repository
+    bintrayName = 'com.flagbeat.textpad'
+
+    // The module permissionName in your Android Studio project
+    libraryName = 'textpad'
+
+    // The organization permissionName of the Bintray repo
+    orgName = 'flagbeatinc'
+
+    // Artifact information
+    // The ID you want to add in 'implementation' line
+    publishedGroupId = 'com.flagbeat.textpad'
+
+    // The artifact you want to add in 'implementation' line
+    artifact = 'textpad'
+
+    // The current version of the library
+    libraryVersion = '1.3.2'
+
+    // Library details
+    libraryDescription = 'A library to simplify collecting user feedback.'
+    siteUrl = 'https://github.com/flagbeat/textpad'
+    gitUrl = 'https://github.com/flagbeat/textpad.git'
+
+    // Developer Information
+    developerId = 'sumitsaurabh'
+    developerName = 'Sumit Saurabh'
+    developerEmail = 'sumitsaurabh2293@gmail.com'
+
+    // License details
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName libraryVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildToolsVersion '28.0.3'
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.google.android:flexbox:2.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'com.google.android.material:material:1.4.0-alpha02'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+}
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'https://raw.githubusercontent.com/flagbeat/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/flagbeat/JCenter/master/bintrayv1.gradle'
+}
