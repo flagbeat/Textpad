@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@null"
-        android:layout_marginTop="@dimen/very_small_margin"
+        android:layout_marginTop="@dimen/small_margin"
         android:cursorVisible="true"
         android:focusable="true"
         android:layout_marginStart="2dp"
@@ -143,6 +143,39 @@
                         app:srcCompat="@drawable/at_the_rate_50"/>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/change_bg_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:clickable="true"
+                    android:tooltipText="Change bg"
+                    android:background="@drawable/textpad_round_bg"
+                    android:padding="@dimen/margin_less"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:tint="@color/secondary_text"
+                        android:src="@drawable/ic_format_color_fill_black_24dp"
+                        app:srcCompat="@drawable/ic_format_color_fill_black_24dp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/font_color_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:tooltipText="Paint text"
+                    android:background="@drawable/textpad_round_bg"
+                    android:padding="@dimen/margin_less">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:tint="@color/secondary_text"
+                        android:src="@drawable/ic_format_color_text_black_24dp"
+                        app:srcCompat="@drawable/ic_format_color_text_black_24dp"/>
+                </RelativeLayout>
+                <RelativeLayout
                     android:id="@+id/clear_editor_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -238,39 +271,7 @@
                         android:src="@drawable/ic_format_italic_black_24dp"
                         app:srcCompat="@drawable/ic_format_italic_black_24dp"/>
                 </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/change_bg_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:clickable="true"
-                    android:tooltipText="Change bg"
-                    android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less"
-                    android:focusable="true">
 
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
-                        android:src="@drawable/ic_format_color_fill_black_24dp"
-                        app:srcCompat="@drawable/ic_format_color_fill_black_24dp" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/font_color_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:tooltipText="Paint text"
-                    android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
-                        android:src="@drawable/ic_format_color_text_black_24dp"
-                        app:srcCompat="@drawable/ic_format_color_text_black_24dp"/>
-                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/font_size_button"
                     android:layout_width="wrap_content"
