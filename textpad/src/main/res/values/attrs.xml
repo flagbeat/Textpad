@@ -3,6 +3,7 @@
     <declare-styleable name="TextPadView">
         <attr name="hintText" format="string" />
         <attr name="padHeight" format="dimension" />
+        <attr name="padExpandedHeight" format="dimension" />
         <attr name="moreOptionEnabled" format="boolean" />
     </declare-styleable>
 </resources>

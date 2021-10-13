@@ -111,15 +111,22 @@ class TextPad(
 		val attributes = context.obtainStyledAttributes(attrs, R.styleable.TextPadView)
 		content.hint = attributes.getString(R.styleable.TextPadView_hintText)
 		val padHeight: Int = attributes.getDimensionPixelSize(R.styleable.TextPadView_padHeight, -1)
-		if (padHeight > -1) {
-			content.layoutParams.height = padHeight
+		val padExpandedHeight: Int = attributes.getDimensionPixelSize(R.styleable.TextPadView_padExpandedHeight, -1)
+		content.layoutParams.height = padHeight
+
+		expand_collapse_view.setOnClickListener {
+			if (content.layoutParams.height > padHeight) {
+				content.layoutParams.height = padExpandedHeight
+			}
+			else {
+				content.layoutParams.height = padHeight
+			}
 		}
+
 		edit_option_wrapper.visibility =
 			if (attributes.getBoolean(R.styleable.TextPadView_moreOptionEnabled, true)) View.VISIBLE else View.GONE
 		attributes.recycle()
 	}
-
-
 
 	fun setContent(text: String, peopleTags: List<PeopleTag>?, hashTags: List<HashTag>?) {
 		textChangeInProgress = true
