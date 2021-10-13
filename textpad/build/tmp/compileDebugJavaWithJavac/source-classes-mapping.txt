@@ -1,8 +1,8 @@
+com/flagbeat/textpad/BuildConfig.java
+ com.flagbeat.textpad.BuildConfig
 com/flagbeat/textpad/TextViewUndoRedo.java
  com.flagbeat.textpad.TextViewUndoRedo
  com.flagbeat.textpad.TextViewUndoRedo$1
  com.flagbeat.textpad.TextViewUndoRedo$EditHistory
  com.flagbeat.textpad.TextViewUndoRedo$EditItem
  com.flagbeat.textpad.TextViewUndoRedo$EditTextChangeListener
-com/flagbeat/textpad/BuildConfig.java
- com.flagbeat.textpad.BuildConfig

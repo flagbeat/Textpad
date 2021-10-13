@@ -698,6 +698,7 @@ int attr onShow 0x0
 int attr onTouchUp 0x0
 int attr overlapAnchor 0x0
 int attr overlay 0x0
+int attr padExpandedHeight 0x0
 int attr padHeight 0x0
 int attr paddingBottomNoButtons 0x0
 int attr paddingBottomSystemWindowInsets 0x0
@@ -1810,6 +1811,7 @@ int drawable design_password_eye 0x0
 int drawable design_snackbar_background 0x0
 int drawable highlighted_button_bg 0x0
 int drawable ic_baseline_format_color_text_24 0x0
+int drawable ic_baseline_unfold_more_24 0x0
 int drawable ic_clock_black_24dp 0x0
 int drawable ic_close_black_24dp 0x0
 int drawable ic_format_bold_black_18dp 0x0
@@ -2013,6 +2015,7 @@ int id elastic 0x0
 int id end 0x0
 int id endToStart 0x0
 int id expand_activities_button 0x0
+int id expand_collapse_view 0x0
 int id expanded_menu 0x0
 int id fade 0x0
 int id fill 0x0
@@ -4791,10 +4794,11 @@ int styleable TextInputLayout_startIconTintMode 61
 int styleable TextInputLayout_suffixText 62
 int styleable TextInputLayout_suffixTextAppearance 63
 int styleable TextInputLayout_suffixTextColor 64
-int[] styleable TextPadView { 0x0, 0x0, 0x0 }
+int[] styleable TextPadView { 0x0, 0x0, 0x0, 0x0 }
 int styleable TextPadView_hintText 0
 int styleable TextPadView_moreOptionEnabled 1
-int styleable TextPadView_padHeight 2
+int styleable TextPadView_padExpandedHeight 2
+int styleable TextPadView_padHeight 3
 int[] styleable ThemeEnforcement { 0x1010034, 0x0, 0x0 }
 int styleable ThemeEnforcement_android_textAppearance 0
 int styleable ThemeEnforcement_enforceMaterialTheme 1

@@ -111,17 +111,7 @@ class TextPad(
 		val attributes = context.obtainStyledAttributes(attrs, R.styleable.TextPadView)
 		content.hint = attributes.getString(R.styleable.TextPadView_hintText)
 		val padHeight: Int = attributes.getDimensionPixelSize(R.styleable.TextPadView_padHeight, -1)
-		val padExpandedHeight: Int = attributes.getDimensionPixelSize(R.styleable.TextPadView_padExpandedHeight, -1)
 		content.layoutParams.height = padHeight
-
-		expand_collapse_view.setOnClickListener {
-			if (content.layoutParams.height > padHeight) {
-				content.layoutParams.height = padExpandedHeight
-			}
-			else {
-				content.layoutParams.height = padHeight
-			}
-		}
 
 		edit_option_wrapper.visibility =
 			if (attributes.getBoolean(R.styleable.TextPadView_moreOptionEnabled, true)) View.VISIBLE else View.GONE
@@ -318,6 +308,23 @@ class TextPad(
 		content.addTextChangedListener(textWatcher)
 
 		renderOptionView(true)
+
+		addExpandCollapseView()
+	}
+
+	private fun addExpandCollapseView() {
+		val attributes = context.obtainStyledAttributes(attrs, R.styleable.TextPadView)
+		val padHeight: Int = attributes.getDimensionPixelSize(R.styleable.TextPadView_padHeight, -1)
+		val padExpandedHeight: Int = attributes.getDimensionPixelSize(R.styleable.TextPadView_padExpandedHeight, -1)
+		expand_collapse_view.setOnClickListener {
+			if (content.layoutParams.height > padHeight) {
+				content.layoutParams.height = padHeight
+			}
+			else {
+				content.layoutParams.height = padExpandedHeight
+			}
+			content.requestLayout();
+		}
 	}
 
  	private fun enableBackgroundTheme() {

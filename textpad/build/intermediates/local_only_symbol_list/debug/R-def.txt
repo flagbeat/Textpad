@@ -2,6 +2,7 @@ R_DEF: Internal format may change without notice
 local
 attr? hintText
 attr? moreOptionEnabled
+attr? padExpandedHeight
 attr? padHeight
 color accent
 color accent1
@@ -107,6 +108,7 @@ drawable chip_bg_states
 drawable chip_text_color
 drawable highlighted_button_bg
 drawable ic_baseline_format_color_text_24
+drawable ic_baseline_unfold_more_24
 drawable ic_close_black_24dp
 drawable ic_format_bold_black_18dp
 drawable ic_format_clear_black_24dp
@@ -135,6 +137,7 @@ id content_bg
 id dropdown_view
 id edit_option
 id edit_option_wrapper
+id expand_collapse_view
 id flag_selection_view
 id font_color_button
 id font_size_button
@@ -164,4 +167,4 @@ layout text_pad
 string app_name
 style ChipTheme
 style chipTextappearance
-styleable TextPadView hintText padHeight moreOptionEnabled
+styleable TextPadView hintText padHeight padExpandedHeight moreOptionEnabled

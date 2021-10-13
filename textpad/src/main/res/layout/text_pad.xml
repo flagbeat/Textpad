@@ -43,17 +43,8 @@
         android:textColor="@color/primary_text"
         android:textIsSelectable="true"
         android:textSize="@dimen/medium_text_size" />
-    <ImageView
-        android:id="@+id/expand_collapse_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_hastag_26px"
-        android:tint="@color/secondary_text"
-        android:layout_marginEnd="@dimen/small_margin"
-        android:layout_marginTop="@dimen/small_margin"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/content"
-        app:srcCompat="@drawable/ic_baseline_unfold_more_24" />
+
+
     <RelativeLayout
         android:id="@+id/dropdown_view"
         android:layout_width="match_parent"
@@ -388,4 +379,14 @@
                 app:srcCompat="@drawable/ic_style_black_24dp" />
         </RelativeLayout>
     </RelativeLayout>
+    <ImageView
+        android:id="@+id/expand_collapse_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:tint="@color/secondary_text"
+        app:srcCompat="@drawable/ic_baseline_unfold_more_24" />
 </RelativeLayout>
