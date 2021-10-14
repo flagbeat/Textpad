@@ -2,7 +2,6 @@ package com.flagbeat.textpad
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Point
 import android.os.Handler
 import android.os.SystemClock
 import android.text.*
@@ -13,16 +12,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
+import android.widget.ArrayAdapter
 import android.widget.RelativeLayout
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.chip.Chip
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_people_tag.view.*
 import kotlinx.android.synthetic.main.text_pad.view.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import android.widget.ArrayAdapter
 
 class TextPad(
 	context: Context,
@@ -215,8 +213,6 @@ class TextPad(
 		return contentText
 	}
 
-
-
 	fun getTemplateContentText(): String {
 		var contentText = getUnspannedTagsContentText(Html.toHtml(content.text), defaultTagColor)
 		if (!TextUtils.isEmpty(contentText)) {
@@ -348,22 +344,14 @@ class TextPad(
 //			insertTagInView(it)
 //			dropdown_view.visibility = View.GONE
 //		}
+
 		content.addTextChangedListener(textWatcher)
 		content.setTokenizer(SpaceTokenizer())
 		content.threshold = 1
 
-		val sa = mutableListOf<Tag>()
-		//suggestAdapter  = ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, sa)
-		suggestAdapter  = AutoCompleteAdapter(context, sa)
-
-
-		//val suggestAdapter = UsersAdapter(context, getDefaultTags(TagType.PEOPLE))
+		val tags = mutableListOf<Tag>()
+		suggestAdapter  = AutoCompleteAdapter(context, tags)
 		content.setAdapter(suggestAdapter)
-		//suggestAdapter.setNotifyOnChange(true)
-
-
-
-
 		renderOptionView(true)
 
 		addExpandCollapseView()
@@ -393,17 +381,6 @@ class TextPad(
 			}
 			false
 		})
-	}
-
-	private fun getCursorAbsPosition(): Point {
-		val pos: Int = content.getSelectionStart()
-		val layout: Layout = content.getLayout()
-		val line = layout.getLineForOffset(pos)
-		val baseline = layout.getLineBaseline(line)
-		val ascent = layout.getLineAscent(line)
-		val x = layout.getPrimaryHorizontal(pos).toInt()
-		val y = (baseline + ascent)
-		return Point(x, y)
 	}
 
  	private fun enableBackgroundTheme() {
@@ -493,32 +470,13 @@ class TextPad(
 				getTagType(selectedText.text[0]),
 				object : HashTagSuggestionResult {
 					override fun onReady(searchText: String, tagType: TagType, tags: List<Tag>) {
-						//(tagging_recycler_view.adapter as TagAdapter).refresh(if (tags.isEmpty()) getDefaultTags(tagType) else tags)
-						showDropDownSuggestion(text, tags)
+						// (tagging_recycler_view.adapter as TagAdapter).refresh(if (tags.isEmpty()) getDefaultTags(tagType) else tags)
+						// tagging_recycler_view.setLayoutParams(param)
+						(suggestAdapter as AutoCompleteAdapter).update(tags)
+						suggestAdapter.filter.filter(searchText, null);
 					}
 				})
 		}
-	}
-
-	private fun showDropDownSuggestion(searchText: String, tags: List<Tag>) {
-		//suggestAdapter.clear()
-//		arrayOf("@apple", "@mango", "@banana", "@apple_mango", "@mango_banana").forEach {
-//			suggestAdapter.add(it)
-//		}
-	//	content.setAdapter(suggestAdapter)
-		(suggestAdapter as AutoCompleteAdapter).update(tags)
-//		tags.forEach {
-//
-//		}
-
-		suggestAdapter.filter.filter(searchText, null);
-	//	suggestAdapter.notifyDataSetChanged()
-
-//		dropdown_view.visibility = View.VISIBLE
-//		val point = getCursorAbsPosition()
-//		val param: AbsoluteLayout.LayoutParams =
-//			AbsoluteLayout.LayoutParams(200, 150, point.x, point.y)
-//		tagging_recycler_view.setLayoutParams(param)
 	}
 
 	private fun showTaggingView(position: Int) {
@@ -527,48 +485,13 @@ class TextPad(
 		if (isAllowedTagInitializer(selectedText.text)){
 			changeTextColor(defaultTagColorResId)
 			debounceTaggingView(selectedText.text)
-//			if (isAllowedHash(selectedText.text)) {
-//				changeTextColor(R.color.hash_tag_color)
-//				debounceTaggingView(selectedText.text)
-//			}
-//			else {
-//				removeColorSpan(selectedText)
-//			}
 		}
 		else
 		{
 			removeColorSpan(selectedText)
 			dropdown_view.visibility = View.GONE
-
-//			if ("" == selectedText.text) {
-//				if (position + 1 < content.text.length) {
-//					selectedText = getSelectedText(position + 1, true, false)
-//					if (isAllowedTagInitializer(selectedText.text) && isAllowedHash(selectedText.text)) {
-//						changeTextColor(R.color.hash_tag_color, selectedText)
-//					}
-//					else if (selectedText.text.isNotEmpty()){
-//						removeColorSpan(selectedText)
-//					}
-//				}
-//
-//				if (position - 2 > 0) {
-//					selectedText = getSelectedText(position - 2, true, false)
-//					if (isAllowedTagInitializer(selectedText.text) && isAllowedHash(selectedText.text)) {
-//						changeTextColor(R.color.hash_tag_color, selectedText)
-//					}
-//				}
-//			}
 		}
 	}
-
-//	private fun isAllowedHash(tag: String): Boolean {
-//		val isAllowed = isAllowedTagInitializer(tag)
-////		if (isAllowed) {
-////			isAllowed = mentionPattern.matcher(tag).matches() || hashPattern.matcher(tag).matches()
-////		}
-//		//Log.e("isAllowed", isAllowed.toString())
-//		return isAllowed
-//	}
 
 	private fun getTagIdentifierCharByType(tagType: TagType): String {
 		var char = " "

@@ -11,7 +11,6 @@ import android.widget.Filterable
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_hash_tag.view.*
 import kotlinx.android.synthetic.main.row_people_tag.view.*
-import java.util.ArrayList
 
 class AutoCompleteAdapter(
     context: Context?,
