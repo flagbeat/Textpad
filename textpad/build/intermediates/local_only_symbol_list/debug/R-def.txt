@@ -1,9 +1,12 @@
 R_DEF: Internal format may change without notice
 local
+attr? deleteTagOnBackPress
+attr? disableOuterScrollThreshold
 attr? hintText
 attr? moreOptionEnabled
 attr? padExpandedHeight
 attr? padHeight
+attr? tagColor
 color accent
 color accent1
 color aluminum
@@ -107,6 +110,7 @@ drawable bg_2
 drawable chip_bg_states
 drawable chip_text_color
 drawable highlighted_button_bg
+drawable ic_baseline_delete_outline_24
 drawable ic_baseline_format_color_text_24
 drawable ic_baseline_unfold_more_24
 drawable ic_close_black_24dp
@@ -167,4 +171,4 @@ layout text_pad
 string app_name
 style ChipTheme
 style chipTextappearance
-styleable TextPadView hintText padHeight padExpandedHeight moreOptionEnabled
+styleable TextPadView hintText padHeight padExpandedHeight moreOptionEnabled deleteTagOnBackPress disableOuterScrollThreshold tagColor

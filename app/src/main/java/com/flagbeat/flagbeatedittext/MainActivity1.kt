@@ -19,7 +19,7 @@ class MainActivity1 : Activity() {
         setContentView(R.layout.activity_main)
         val str =
             "@People , You've gotta #dance like there's nobody watching,#Love like you'll never be #hurt,#Sing like there's @nobody listening,And live like it's #heaven on #earth."
-        val txt = findViewById<View>(R.id.display) as TextView
+        val txt = findViewById<View>(R.id.display_content) as TextView
         val hashtagSpans1 = getSpans(str, '#')
         val calloutSpans1 = getSpans(str, '@')
         val commentsContent1 = SpannableString(str)
@@ -27,7 +27,7 @@ class MainActivity1 : Activity() {
         setSpanUname(commentsContent1, calloutSpans1)
         txt.movementMethod = LinkMovementMethod.getInstance()
 
-        
+
         txt.text = commentsContent1
 
 

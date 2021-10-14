@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), OnInitTagListener {
             }
             edit_text.setContent(text, edit_text.getPeopleTagsInContent(), edit_text.getHashTagsInContent())
 
-            display.text =
+            display_content.text =
                 TextPad.getDecoratedContentText(
                     edit_text.getTemplateContentText(),
                     "#662C4F",
@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity(), OnInitTagListener {
                         }
                     })
 
-            display.highlightColor = resources.getColor(android.R.color.transparent)
-            display.movementMethod = LinkMovementMethod.getInstance()
+            display_content.highlightColor = resources.getColor(android.R.color.transparent)
+            display_content.movementMethod = LinkMovementMethod.getInstance()
 
 
         }
@@ -94,13 +94,13 @@ class MainActivity : AppCompatActivity(), OnInitTagListener {
 
     fun getHashTags(): ArrayList<Tag> {
         val tags: ArrayList<Tag> = ArrayList()
-        val tag: Tag = HashTag("cricket", "cricket", "", TagType.HASH, false)
-        tags += HashTag("match", "match", "", TagType.HASH, false)
-        tags += HashTag("ind-vs-aus", "ind-vs-aus", "", TagType.HASH, false)
-        tags += HashTag("masti", "masti", "", TagType.HASH, false)
-        tags += HashTag("flagbeat", "flagbeat", "", TagType.HASH, false)
-        tags += HashTag("fun-with-friends", "fun-with-friends", "", TagType.HASH, false)
-        tags += HashTag("weekend", "weekend", "", TagType.HASH, false)
+        val tag: Tag = HashTag("#cricket", "#cricket", "", TagType.HASH, false)
+        tags += HashTag("#match", "#match", "", TagType.HASH, false)
+        tags += HashTag("#ind-vs-aus", "#ind-vs-aus", "", TagType.HASH, false)
+        tags += HashTag("#masti", "#masti", "", TagType.HASH, false)
+        tags += HashTag("#flagbeat", "#flagbeat", "", TagType.HASH, false)
+        tags += HashTag("#fun-with-friends", "#fun-with-friends", "", TagType.HASH, false)
+        tags += HashTag("#weekend", "#weekend", "", TagType.HASH, false)
         tags += tag
         tags += tag
         tags += tag
@@ -117,12 +117,12 @@ class MainActivity : AppCompatActivity(), OnInitTagListener {
         val tags: ArrayList<Tag> = ArrayList()
         val tag: Tag =
             PeopleTag("13237682623", "Sumit Saurabh",
-                "", TagType.PEOPLE, false, "sumitsaurabh" )
+                "", TagType.PEOPLE, false, "@sumitsaurabh" )
 
         tags += PeopleTag("23237682623", "Nitesh Garg",
-            "", TagType.PEOPLE, false, "nitesh321" )
+            "", TagType.PEOPLE, false, "@nitesh321" )
         tags += PeopleTag("33237682623", "Amit Kumar",
-            "", TagType.PEOPLE, false, "amit_kumar" )
+            "", TagType.PEOPLE, false, "@amit_kumar" )
         tags += tag
         tags += tag
         tags += tag

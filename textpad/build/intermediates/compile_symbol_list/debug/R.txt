@@ -316,12 +316,14 @@ int attr dayTodayStyle 0x0
 int attr defaultDuration 0x0
 int attr defaultQueryHint 0x0
 int attr defaultState 0x0
+int attr deleteTagOnBackPress 0x0
 int attr deltaPolarAngle 0x0
 int attr deltaPolarRadius 0x0
 int attr deriveConstraintsFrom 0x0
 int attr dialogCornerRadius 0x0
 int attr dialogPreferredPadding 0x0
 int attr dialogTheme 0x0
+int attr disableOuterScrollThreshold 0x0
 int attr displayOptions 0x0
 int attr divider 0x0
 int attr dividerDrawable 0x0
@@ -858,6 +860,7 @@ int attr tabStyle 0x0
 int attr tabTextAppearance 0x0
 int attr tabTextColor 0x0
 int attr tabUnboundedRipple 0x0
+int attr tagColor 0x0
 int attr targetId 0x0
 int attr telltales_tailColor 0x0
 int attr telltales_tailScale 0x0
@@ -1810,6 +1813,7 @@ int drawable design_ic_visibility_off 0x0
 int drawable design_password_eye 0x0
 int drawable design_snackbar_background 0x0
 int drawable highlighted_button_bg 0x0
+int drawable ic_baseline_delete_outline_24 0x0
 int drawable ic_baseline_format_color_text_24 0x0
 int drawable ic_baseline_unfold_more_24 0x0
 int drawable ic_clock_black_24dp 0x0
@@ -4794,11 +4798,14 @@ int styleable TextInputLayout_startIconTintMode 61
 int styleable TextInputLayout_suffixText 62
 int styleable TextInputLayout_suffixTextAppearance 63
 int styleable TextInputLayout_suffixTextColor 64
-int[] styleable TextPadView { 0x0, 0x0, 0x0, 0x0 }
-int styleable TextPadView_hintText 0
-int styleable TextPadView_moreOptionEnabled 1
-int styleable TextPadView_padExpandedHeight 2
-int styleable TextPadView_padHeight 3
+int[] styleable TextPadView { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
+int styleable TextPadView_deleteTagOnBackPress 0
+int styleable TextPadView_disableOuterScrollThreshold 1
+int styleable TextPadView_hintText 2
+int styleable TextPadView_moreOptionEnabled 3
+int styleable TextPadView_padExpandedHeight 4
+int styleable TextPadView_padHeight 5
+int styleable TextPadView_tagColor 6
 int[] styleable ThemeEnforcement { 0x1010034, 0x0, 0x0 }
 int styleable ThemeEnforcement_android_textAppearance 0
 int styleable ThemeEnforcement_enforceMaterialTheme 1

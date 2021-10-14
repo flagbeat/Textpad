@@ -6,3 +6,5 @@ com/flagbeat/textpad/TextViewUndoRedo.java
  com.flagbeat.textpad.TextViewUndoRedo$EditHistory
  com.flagbeat.textpad.TextViewUndoRedo$EditItem
  com.flagbeat.textpad.TextViewUndoRedo$EditTextChangeListener
+com/flagbeat/textpad/SpaceTokenizer.java
+ com.flagbeat.textpad.SpaceTokenizer

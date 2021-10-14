@@ -56,7 +56,7 @@ public class MainActivity2 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         String a = "<a href='@4234234234234'>Sumit Saurabh</a>123456   \n <a href='#hashtag'>hashtag<a/>";
-        View span = findViewById(R.id.display);
+        View span = findViewById(R.id.display_content);
         Spanned text = Html.fromHtml(a);
         ((TextView) span).setText(text);
         ((TextView) span).setMovementMethod(LinkMovementMethodExt.getInstance(handler, URLSpan.class));

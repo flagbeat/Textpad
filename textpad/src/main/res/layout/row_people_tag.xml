@@ -2,14 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/flag_selection_view"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/medium_margin"
     android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/margin_less"
     android:paddingTop="@dimen/margin_less"
-    android:background="@drawable/textpad_round_bg"
-    android:layout_margin="@dimen/very_small_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingStart="@dimen/medium_margin">
 

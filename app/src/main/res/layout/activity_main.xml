@@ -1,47 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="100dp"
-    android:background="@color/red"
-    tools:context=".MainActivity2">
-    <com.flagbeat.textpad.TextPad
-        android:id="@+id/edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hintText="Enter text"
-        app:padHeight="100dp"
-        app:padExpandedHeight="200dp"
-        app:moreOptionEnabled="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-    <TextView
-        android:id="@+id/display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:paddingTop="@dimen/large_margin"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:background="@color/dirty_white"
-        android:layout_marginTop="@dimen/large_margin"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:paddingBottom="@dimen/large_margin"
-        android:linksClickable="true"
-        android:allowUndo="true"
-        android:autoLink="all"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text"/>
-    <Button
-        android:id="@+id/done"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display"
-        android:text="DONE"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:paddingTop="400dp"
+        android:background="@color/red"
+        tools:context=".MainActivity2">
+        <com.flagbeat.textpad.TextPad
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintText="Enter text"
+            app:padHeight="100dp"
+            app:padExpandedHeight="350dp"
+            app:moreOptionEnabled="true"
+            app:tagColor="@color/colorPrimary"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/display_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            android:paddingTop="@dimen/large_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:background="@color/dirty_white"
+            android:layout_marginTop="@dimen/large_margin"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingBottom="@dimen/large_margin"
+            android:linksClickable="true"
+            android:allowUndo="true"
+            android:autoLink="all"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text"/>
+        <Button
+            android:id="@+id/done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/display_content"
+            android:text="DONE"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

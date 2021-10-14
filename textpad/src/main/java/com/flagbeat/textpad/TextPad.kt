@@ -2,6 +2,7 @@ package com.flagbeat.textpad
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Point
 import android.os.Handler
 import android.os.SystemClock
 import android.text.*
@@ -10,6 +11,7 @@ import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.RelativeLayout
 import com.google.android.flexbox.FlexDirection
@@ -20,7 +22,7 @@ import kotlinx.android.synthetic.main.row_people_tag.view.*
 import kotlinx.android.synthetic.main.text_pad.view.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-
+import android.widget.ArrayAdapter
 
 class TextPad(
 	context: Context,
@@ -43,7 +45,13 @@ class TextPad(
 	private var mentionRegex: String = "(@[a-zA-Z0-9_]+)"
 	private val hashPattern: Pattern = Pattern.compile(hashRegex)
 	private val mentionPattern: Pattern = Pattern.compile(mentionRegex)
-	private val defaultTagColor: String
+	private var defaultTagColor: String = ""
+	private var defaultTagColorResId: Int = R.color.hash_tag_color
+	private lateinit var suggestAdapter: ArrayAdapter<String>
+	private var deleteTagOnBackPress: Boolean = false
+	private var disableOuterScrollThreshold: Int = 4
+	private var padHeight: Int = 100
+	private var padExpandedHeight: Int = 240
 
 	private val textColors = arrayOf(
 		R.color.inc_red,
@@ -72,7 +80,12 @@ class TextPad(
 //			Log.e("onTextChanged", "start = " + start.toString())
 //			Log.e("onTextChanged", "before = " + before.toString())
 //			Log.e("onTextChanged", "count = " + count.toString())
-			if (!textChangeInProgress) {
+
+			if(count < before && deleteTagOnBackPress) {
+				Log.e("onTextChanged", "backspace pressed")
+				removeTagOnBackPress(start)
+			}
+			else if (!textChangeInProgress) {
 				showTaggingView(start)
 			}
 		}
@@ -80,6 +93,22 @@ class TextPad(
 		override fun afterTextChanged(et: Editable) {
 
 		}
+	}
+
+	private fun removeTagOnBackPress(position: Int) {
+		val selectedText = getSelectedText(position, true, true)
+		if (isAllowedTagInitializer(selectedText.text)) {
+			val text: String = content.text.toString()
+			content.setText(text.removeRange(selectedText.selectionStart, selectedText.selectionEnd))
+
+			if (selectedText.selectionStart < content.text.length) {
+				content.setSelection(selectedText.selectionStart)
+			}
+			else {
+				content.setSelection(content.text.length)
+			}
+		}
+		Log.e("onTextChanged", "text = " + selectedText.text)
 	}
 
 	private var textColorIndex: Int = -1
@@ -95,26 +124,41 @@ class TextPad(
 		this.onInitTagListener = tagSuggestionListener
 	}
 
+	private fun setDefaultTagColor() {
+		defaultTagColor = "#" + Integer.toHexString(context.resources.getColor(defaultTagColorResId)).substring(2).toUpperCase()
+	}
+
     init {
         inflate(context, R.layout.text_pad, this)
+		setDefaultTagColor()
 	    this.attrs = attrs
 		selectedHashTags = emptyList()
 		selectedPeopleTags = emptyList()
 	    initAttributes()
 		textViewUndoRedo = TextViewUndoRedo(content)
 		inflater = context.getSystemService( Context.LAYOUT_INFLATER_SERVICE ) as LayoutInflater
-		defaultTagColor = "#" + Integer.toHexString(context.resources.getColor(R.color.hash_tag_color)).substring(2).toUpperCase()
+
 		renderView()
     }
 
 	private fun initAttributes() {
 		val attributes = context.obtainStyledAttributes(attrs, R.styleable.TextPadView)
 		content.hint = attributes.getString(R.styleable.TextPadView_hintText)
-		val padHeight: Int = attributes.getDimensionPixelSize(R.styleable.TextPadView_padHeight, -1)
-		content.layoutParams.height = padHeight
-
+		padHeight = attributes.getDimensionPixelSize(R.styleable.TextPadView_padHeight, padHeight)
+		padExpandedHeight = attributes.getDimensionPixelSize(R.styleable.TextPadView_padExpandedHeight, padExpandedHeight)
 		edit_option_wrapper.visibility =
 			if (attributes.getBoolean(R.styleable.TextPadView_moreOptionEnabled, true)) View.VISIBLE else View.GONE
+		deleteTagOnBackPress =
+			attributes.getBoolean(R.styleable.TextPadView_deleteTagOnBackPress, deleteTagOnBackPress)
+		disableOuterScrollThreshold =
+			attributes.getDimensionPixelSize(R.styleable.TextPadView_disableOuterScrollThreshold, disableOuterScrollThreshold)
+		defaultTagColorResId = attributes.getResourceId(R.styleable.TextPadView_tagColor, defaultTagColorResId)
+
+		setDefaultTagColor()
+		content.layoutParams.height = padHeight
+		content.invalidate()
+		content.requestLayout()
+
 		attributes.recycle()
 	}
 
@@ -297,15 +341,28 @@ class TextPad(
 			renderOptionView(edit_option.visibility == View.VISIBLE)
 		}
 
-		val layoutManager = FlexboxLayoutManager(context)
-		layoutManager.flexDirection = FlexDirection.ROW
-		tagging_recycler_view.layoutManager = layoutManager
-		tagging_recycler_view.adapter = TagAdapter(mutableListOf()) {
-			insertTagInView(it)
-			dropdown_view.visibility = View.GONE
-		}
-
+//		val layoutManager = FlexboxLayoutManager(context)
+//		layoutManager.flexDirection = FlexDirection.ROW
+//		tagging_recycler_view.layoutManager = layoutManager
+//		tagging_recycler_view.adapter = TagAdapter(mutableListOf()) {
+//			insertTagInView(it)
+//			dropdown_view.visibility = View.GONE
+//		}
 		content.addTextChangedListener(textWatcher)
+		content.setTokenizer(SpaceTokenizer())
+		content.threshold = 1
+
+		val sa = mutableListOf<Tag>()
+		//suggestAdapter  = ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, sa)
+		suggestAdapter  = AutoCompleteAdapter(context, sa)
+
+
+		//val suggestAdapter = UsersAdapter(context, getDefaultTags(TagType.PEOPLE))
+		content.setAdapter(suggestAdapter)
+		//suggestAdapter.setNotifyOnChange(true)
+
+
+
 
 		renderOptionView(true)
 
@@ -313,9 +370,6 @@ class TextPad(
 	}
 
 	private fun addExpandCollapseView() {
-		val attributes = context.obtainStyledAttributes(attrs, R.styleable.TextPadView)
-		val padHeight: Int = attributes.getDimensionPixelSize(R.styleable.TextPadView_padHeight, -1)
-		val padExpandedHeight: Int = attributes.getDimensionPixelSize(R.styleable.TextPadView_padExpandedHeight, -1)
 		expand_collapse_view.setOnClickListener {
 			if (content.layoutParams.height > padHeight) {
 				content.layoutParams.height = padHeight
@@ -323,8 +377,33 @@ class TextPad(
 			else {
 				content.layoutParams.height = padExpandedHeight
 			}
-			content.requestLayout();
+			content.invalidate()
+			content.requestLayout()
 		}
+
+		content.setOnTouchListener(OnTouchListener { v, event ->
+			if (content.hasFocus() && content.lineCount > disableOuterScrollThreshold) {
+				v.parent.requestDisallowInterceptTouchEvent(true)
+				when (event.action and MotionEvent.ACTION_MASK) {
+					MotionEvent.ACTION_SCROLL -> {
+						v.parent.requestDisallowInterceptTouchEvent(false)
+						return@OnTouchListener true
+					}
+				}
+			}
+			false
+		})
+	}
+
+	private fun getCursorAbsPosition(): Point {
+		val pos: Int = content.getSelectionStart()
+		val layout: Layout = content.getLayout()
+		val line = layout.getLineForOffset(pos)
+		val baseline = layout.getLineBaseline(line)
+		val ascent = layout.getLineAscent(line)
+		val x = layout.getPrimaryHorizontal(pos).toInt()
+		val y = (baseline + ascent)
+		return Point(x, y)
 	}
 
  	private fun enableBackgroundTheme() {
@@ -405,34 +484,60 @@ class TextPad(
 	}
 
 	private fun fetchTags(text: String) {
+		Log.e(TAG, "search tag: $text")
+	//	suggestAdapter.clear()
 		val selectedText = getSelectedText(content.selectionStart, true, false)
-		if (isAllowedHash(selectedText.text)) {
+		if (isAllowedTagInitializer(selectedText.text)) {
 			onInitTagListener?.onTypeTag(
 				selectedText.text,
 				getTagType(selectedText.text[0]),
 				object : HashTagSuggestionResult {
 					override fun onReady(searchText: String, tagType: TagType, tags: List<Tag>) {
-						(tagging_recycler_view.adapter as TagAdapter).refresh(if (tags.isEmpty()) getDefaultTags(tagType) else tags)
-						dropdown_view.visibility = View.VISIBLE
+						//(tagging_recycler_view.adapter as TagAdapter).refresh(if (tags.isEmpty()) getDefaultTags(tagType) else tags)
+						showDropDownSuggestion(text, tags)
 					}
 				})
 		}
 	}
 
+	private fun showDropDownSuggestion(searchText: String, tags: List<Tag>) {
+		//suggestAdapter.clear()
+//		arrayOf("@apple", "@mango", "@banana", "@apple_mango", "@mango_banana").forEach {
+//			suggestAdapter.add(it)
+//		}
+	//	content.setAdapter(suggestAdapter)
+		(suggestAdapter as AutoCompleteAdapter).update(tags)
+//		tags.forEach {
+//
+//		}
+
+		suggestAdapter.filter.filter(searchText, null);
+	//	suggestAdapter.notifyDataSetChanged()
+
+//		dropdown_view.visibility = View.VISIBLE
+//		val point = getCursorAbsPosition()
+//		val param: AbsoluteLayout.LayoutParams =
+//			AbsoluteLayout.LayoutParams(200, 150, point.x, point.y)
+//		tagging_recycler_view.setLayoutParams(param)
+	}
+
 	private fun showTaggingView(position: Int) {
-		var selectedText = getSelectedText(position, true, false)
-		//Log.e("onTextChanged", "text = " + selectedText.text)
+		var selectedText = getSelectedText(position, true, true)
+		Log.e("onTextChanged", "text = " + selectedText.text)
 		if (isAllowedTagInitializer(selectedText.text)){
-			if (isAllowedHash(selectedText.text)) {
-				changeTextColor(R.color.hash_tag_color)
-				debounceTaggingView(selectedText.text)
-			}
-			else {
-				removeColorSpan(selectedText)
-			}
+			changeTextColor(defaultTagColorResId)
+			debounceTaggingView(selectedText.text)
+//			if (isAllowedHash(selectedText.text)) {
+//				changeTextColor(R.color.hash_tag_color)
+//				debounceTaggingView(selectedText.text)
+//			}
+//			else {
+//				removeColorSpan(selectedText)
+//			}
 		}
 		else
 		{
+			removeColorSpan(selectedText)
 			dropdown_view.visibility = View.GONE
 
 //			if ("" == selectedText.text) {
@@ -456,14 +561,14 @@ class TextPad(
 		}
 	}
 
-	private fun isAllowedHash(tag: String): Boolean {
-		val isAllowed = isAllowedTagInitializer(tag)
-//		if (isAllowed) {
-//			isAllowed = mentionPattern.matcher(tag).matches() || hashPattern.matcher(tag).matches()
-//		}
-		//Log.e("isAllowed", isAllowed.toString())
-		return isAllowed
-	}
+//	private fun isAllowedHash(tag: String): Boolean {
+//		val isAllowed = isAllowedTagInitializer(tag)
+////		if (isAllowed) {
+////			isAllowed = mentionPattern.matcher(tag).matches() || hashPattern.matcher(tag).matches()
+////		}
+//		//Log.e("isAllowed", isAllowed.toString())
+//		return isAllowed
+//	}
 
 	private fun getTagIdentifierCharByType(tagType: TagType): String {
 		var char = " "
@@ -482,13 +587,13 @@ class TextPad(
 		if (null != selectedText) {
 			val spannable = SpannableStringBuilder(content.text)
 
-			val tagLabel: String = getTagIdentifierCharByType(tag.tagType) + if (tag.tagType == TagType.PEOPLE) (tag as PeopleTag).username else tag.label
+			val tagLabel: String = /*getTagIdentifierCharByType(tag.tagType) + */if (tag.tagType == TagType.PEOPLE) (tag as PeopleTag).username!! else tag.label
 
 			content.text = spannable.replace(selectedText.selectionStart, selectedText.selectionEnd, "$tagLabel ")
 
 			selectedText.text = tagLabel
 			selectedText.selectionEnd = selectedText.selectionStart + tagLabel.length
-			changeTextColor(R.color.hash_tag_color, selectedText)
+			changeTextColor(defaultTagColorResId, selectedText)
 
 			val cursorPosition: Int = selectedText.selectionEnd + 1
 			content.setSelection(cursorPosition, cursorPosition)
@@ -549,11 +654,12 @@ class TextPad(
 	}
 
 	private fun getSelectedText(position: Int, preCursorSelection: Boolean = true, postCursorSelection: Boolean = false): SelectedText {
+		Log.e("getSelectedText", "position = " + position)
 		var selectionStart = position
 		var selectionEnd = position
 		val text = content.text
 		var selectedWord = ""
-		if ((text.length > position /*&& !isDelimiter(text[position])*/) || text.length == position) {
+		if (text.length >= position) {
 
 			// finding start
 			if (preCursorSelection) {
@@ -740,14 +846,16 @@ class TextPad(
 	}
 
 	private fun changeTextColor(resId: Int) {
+		Log.e(TAG, "changeTextColor")
 		val selectedText: SelectedText? = getSelectedText(true, true)
 		changeTextColor(resId, selectedText)
 	}
 
 	private fun changeTextColor(resId: Int, selectedText: SelectedText?) {
+		Log.e(TAG, "changeTextColor: text = $selectedText")
 		if (!TextUtils.isEmpty(selectedText?.text)) {
 			val spannable: Spannable = content.text
-
+			Log.e(TAG, "changeTextColor: spannable = ${spannable.toString()}")
 			removeColorSpan(selectedText!!)
 
 			spannable.setSpan(
