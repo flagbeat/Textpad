@@ -1956,6 +1956,7 @@ int id baseline 0x0
 int id blocking 0x0
 int id bold_button 0x0
 int id bottom 0x0
+int id bottom_space 0x0
 int id bounce 0x0
 int id buttonPanel 0x0
 int id cancel_button 0x0
@@ -2008,7 +2009,6 @@ int id dragRight 0x0
 int id dragStart 0x0
 int id dragUp 0x0
 int id dropdown_menu 0x0
-int id dropdown_view 0x0
 int id easeIn 0x0
 int id easeInOut 0x0
 int id easeOut 0x0
@@ -2163,6 +2163,7 @@ int id right 0x0
 int id rightToLeft 0x0
 int id right_icon 0x0
 int id right_side 0x0
+int id root_pad 0x0
 int id rounded 0x0
 int id row 0x0
 int id row_index_key 0x0
@@ -2230,7 +2231,6 @@ int id tag_suggestion_chip_group 0x0
 int id tag_transition_group 0x0
 int id tag_unhandled_key_event_manager 0x0
 int id tag_unhandled_key_listeners 0x0
-int id tagging_recycler_view 0x0
 int id test_checkbox_android_button_tint 0x0
 int id test_checkbox_app_button_tint 0x0
 int id test_radiobutton_android_button_tint 0x0

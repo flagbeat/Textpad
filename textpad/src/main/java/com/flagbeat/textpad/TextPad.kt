@@ -470,8 +470,6 @@ class TextPad(
 				getTagType(selectedText.text[0]),
 				object : HashTagSuggestionResult {
 					override fun onReady(searchText: String, tagType: TagType, tags: List<Tag>) {
-						// (tagging_recycler_view.adapter as TagAdapter).refresh(if (tags.isEmpty()) getDefaultTags(tagType) else tags)
-						// tagging_recycler_view.setLayoutParams(param)
 						(suggestAdapter as AutoCompleteAdapter).update(tags)
 						suggestAdapter.filter.filter(searchText, null);
 					}
@@ -489,7 +487,6 @@ class TextPad(
 		else
 		{
 			removeColorSpan(selectedText)
-			dropdown_view.visibility = View.GONE
 		}
 	}
 

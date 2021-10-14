@@ -134,11 +134,11 @@ drawable textpad_round_bg
 id auto_tag_suggestion
 id avatar
 id bold_button
+id bottom_space
 id change_bg_button
 id clear_editor_button
 id content
 id content_bg
-id dropdown_view
 id edit_option
 id edit_option_wrapper
 id expand_collapse_view
@@ -155,11 +155,11 @@ id option_button_icon
 id quote_button
 id redo_button
 id remove_style_button
+id root_pad
 id strikethrough_button
 id tag_chip
 id tag_name
 id tag_suggestion_chip_group
-id tagging_recycler_view
 id underline_button
 id undo_button
 id username

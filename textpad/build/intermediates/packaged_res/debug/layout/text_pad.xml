@@ -1,7 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/root_pad"
     xmlns:apps="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
     android:background="@drawable/textpad_bg"
@@ -12,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/content"
-        android:layout_alignBottom="@+id/edit_option_wrapper"
+        android:layout_alignBottom="@+id/bottom_space"
         android:scaleType="fitXY"
         android:src="@drawable/textpad_bg" />
 
@@ -45,79 +47,65 @@
         android:textSize="@dimen/medium_text_size" />
 
     <RelativeLayout
-        android:id="@+id/dropdown_view"
-        android:layout_width="match_parent"
-        android:elevation="20dp"
-        android:visibility="gone"
-        android:layout_marginStart="@dimen/very_small_margin"
-        android:layout_marginEnd="@dimen/very_small_margin"
-        android:paddingTop="@dimen/very_small_margin"
-        android:paddingBottom="@dimen/very_small_margin"
-        android:background="@color/white"
-        android:layout_below="@+id/content"
-        android:layout_marginBottom="@dimen/very_small_margin"
-        android:layout_height="256dp">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tagging_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
-    <RelativeLayout
         android:id="@+id/edit_option_wrapper"
         android:layout_width="match_parent"
         android:layout_height="41dp"
-        android:visibility="visible"
+        android:layout_below="@+id/content"
         android:animateLayoutChanges="true"
         android:background="@color/translucent"
         android:paddingLeft="@dimen/small_margin"
         android:paddingRight="@dimen/small_margin"
-        android:layout_below="@+id/content">
+        android:visibility="visible">
+
         <HorizontalScrollView
             android:id="@+id/auto_tag_suggestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:scrollbarSize="0dp"
             android:layout_toStartOf="@+id/option_button"
-            android:visibility="visible"
-            android:layout_toLeftOf="@+id/option_button">
+            android:layout_toLeftOf="@+id/option_button"
+            android:scrollbarSize="0dp"
+            android:visibility="visible">
+
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/tag_suggestion_chip_group"
                 android:layout_width="wrap_content"
-                apps:singleLine="true"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="1dp"
                 app:chipSpacingHorizontal="3dp"
                 app:chipSpacingVertical="0dp"
-                android:layout_marginTop="1dp"
-                android:layout_gravity="center_vertical"
                 apps:chipSpacingVertical="0dp"
-                android:layout_height="26dp">
-            </com.google.android.material.chip.ChipGroup>
+                apps:singleLine="true"></com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
+
         <HorizontalScrollView
             android:id="@+id/edit_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbarSize="0dp"
-            android:animateLayoutChanges="true"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/option_button"
-            android:visibility="visible"
-            android:layout_toLeftOf="@+id/option_button">
+            android:layout_toLeftOf="@+id/option_button"
+            android:animateLayoutChanges="true"
+            android:scrollbarSize="0dp"
+            android:visibility="visible">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="2dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="2dp">
+
                 <RelativeLayout
                     android:id="@+id/hash_tag_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:clickable="true"
-                    android:tooltipText="Flag Tag"
                     android:background="@drawable/textpad_round_bg"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="@dimen/margin_less"
-                    android:focusable="true">
+                    android:tooltipText="Flag Tag">
 
                     <ImageView
                         android:layout_width="18dp"
@@ -126,66 +114,72 @@
                         android:tint="@color/secondary_text"
                         app:srcCompat="@drawable/ic_hastag_26px" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/mention_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:clickable="true"
-                    android:tooltipText="Flag Member"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:clickable="true"
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Flag Member">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:paddingTop="1dp"
                         android:paddingBottom="1dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/at_the_rate_50"
-                        app:srcCompat="@drawable/at_the_rate_50"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/at_the_rate_50" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/change_bg_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:clickable="true"
-                    android:tooltipText="Change bg"
                     android:background="@drawable/textpad_round_bg"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="@dimen/margin_less"
-                    android:focusable="true">
+                    android:tooltipText="Change bg">
 
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_format_color_fill_black_24dp"
+                        android:tint="@color/secondary_text"
                         app:srcCompat="@drawable/ic_format_color_fill_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/font_color_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:tooltipText="Paint text"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Paint text">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_format_color_text_black_24dp"
-                        app:srcCompat="@drawable/ic_format_color_text_black_24dp"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/ic_format_color_text_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/clear_editor_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:clickable="true"
-                    android:tooltipText="Clear the editor"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:clickable="true"
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Clear the editor">
 
                     <ImageView
                         android:layout_width="18dp"
@@ -194,85 +188,95 @@
                         android:tint="@color/secondary_text"
                         app:srcCompat="@drawable/ic_baseline_delete_outline_24" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/undo_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:clickable="true"
-                    android:tooltipText="Undo"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:clickable="true"
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Undo">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_undo_black_24dp"
-                        app:srcCompat="@drawable/ic_undo_black_24dp"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/ic_undo_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/redo_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:clickable="true"
-                    android:tooltipText="Redo"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:clickable="true"
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Redo">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/dark"
                         android:src="@drawable/ic_redo_black_24dp"
-                        app:srcCompat="@drawable/ic_redo_black_24dp"/>
+                        android:tint="@color/dark"
+                        app:srcCompat="@drawable/ic_redo_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/remove_style_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:clickable="true"
-                    android:tooltipText="Bold"
-                    android:visibility="gone"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:clickable="true"
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Bold"
+                    android:visibility="gone">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_format_clear_black_24dp"
-                        app:srcCompat="@drawable/ic_format_clear_black_24dp"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/ic_format_clear_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/bold_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:clickable="true"
-                    android:tooltipText="Bold"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:clickable="true"
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Bold">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_format_bold_black_18dp"
-                        app:srcCompat="@drawable/ic_format_bold_black_18dp"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/ic_format_bold_black_18dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/italic_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:tooltipText="Italic"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Italic">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_format_italic_black_24dp"
-                        app:srcCompat="@drawable/ic_format_italic_black_24dp"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/ic_format_italic_black_24dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -280,105 +284,118 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:tooltipText="Resize text"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Resize text">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_format_size_black_24dp"
-                        app:srcCompat="@drawable/ic_format_size_black_24dp"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/ic_format_size_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/strikethrough_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:tooltipText="Strikethrough"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Strikethrough">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_format_strikethrough_black_24dp"
-                        app:srcCompat="@drawable/ic_format_strikethrough_black_24dp"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/ic_format_strikethrough_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/underline_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:tooltipText="Underline"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Underline">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_format_underlined_black_24dp"
-                        app:srcCompat="@drawable/ic_format_underlined_black_24dp"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/ic_format_underlined_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/highlighted_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:tooltipText="Highlight text"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Highlight text">
+
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_highlight_black_24dp"
-                        app:srcCompat="@drawable/ic_highlight_black_24dp"/>
+                        android:tint="@color/secondary_text"
+                        app:srcCompat="@drawable/ic_highlight_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/quote_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:tooltipText="Quote"
-                    android:visibility="gone"
                     android:background="@drawable/textpad_round_bg"
-                    android:padding="@dimen/margin_less">
+                    android:padding="@dimen/margin_less"
+                    android:tooltipText="Quote"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:tint="@color/secondary_text"
                         android:src="@drawable/ic_format_quote_black_24dp"
+                        android:tint="@color/secondary_text"
                         app:srcCompat="@drawable/ic_format_quote_black_24dp" />
                 </RelativeLayout>
             </LinearLayout>
         </HorizontalScrollView>
+
         <RelativeLayout
             android:id="@+id/option_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:tooltipText="Decorate"
-            android:animateLayoutChanges="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/very_small_margin"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/very_small_margin"
+            android:layout_marginLeft="@dimen/very_small_margin"
+            android:layout_marginTop="1dp"
+            android:animateLayoutChanges="true"
             android:background="@drawable/highlighted_button_bg"
             android:padding="@dimen/margin_less"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="@dimen/very_small_margin">
+            android:tooltipText="Decorate">
 
             <ImageView
                 android:id="@+id/option_button_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:tint="@color/dirty_white"
                 android:src="@drawable/ic_style_black_24dp"
+                android:tint="@color/dirty_white"
                 app:srcCompat="@drawable/ic_style_black_24dp" />
         </RelativeLayout>
     </RelativeLayout>
-
+    <View
+        android:id="@+id/bottom_space"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@+id/edit_option_wrapper" />
     <ImageView
         android:id="@+id/expand_collapse_view"
         android:layout_width="wrap_content"
