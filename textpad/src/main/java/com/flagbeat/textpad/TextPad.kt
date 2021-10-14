@@ -149,7 +149,7 @@ class TextPad(
 		deleteTagOnBackPress =
 			attributes.getBoolean(R.styleable.TextPadView_deleteTagOnBackPress, deleteTagOnBackPress)
 		disableOuterScrollThreshold =
-			attributes.getDimensionPixelSize(R.styleable.TextPadView_disableOuterScrollThreshold, disableOuterScrollThreshold)
+			attributes.getInt(R.styleable.TextPadView_disableOuterScrollThreshold, disableOuterScrollThreshold)
 		defaultTagColorResId = attributes.getResourceId(R.styleable.TextPadView_tagColor, defaultTagColorResId)
 
 		setDefaultTagColor()
