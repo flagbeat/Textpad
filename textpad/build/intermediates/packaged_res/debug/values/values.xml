@@ -112,7 +112,7 @@
         <attr format="dimension" name="padExpandedHeight"/>
         <attr format="boolean" name="moreOptionEnabled"/>
         <attr format="boolean" name="deleteTagOnBackPress"/>
-        <attr format="dimension" name="disableOuterScrollThreshold"/>
+        <attr format="integer" name="disableOuterScrollThreshold"/>
         <attr format="reference" name="tagColor"/>
     </declare-styleable>
 </resources>

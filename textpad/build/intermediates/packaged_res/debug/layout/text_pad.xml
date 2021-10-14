@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:apps="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
-    android:paddingBottom="2dp"
     android:background="@drawable/textpad_bg"
     android:orientation="vertical">
 
@@ -13,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/content"
-        android:layout_alignBottom="@+id/content"
+        android:layout_alignBottom="@+id/edit_option_wrapper"
         android:scaleType="fitXY"
         android:src="@drawable/textpad_bg" />
 
@@ -21,8 +20,6 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
         android:allowUndo="true"
         android:autoLink="all"
         android:background="@null"
@@ -38,7 +35,7 @@
         android:minLines="5"
         android:overScrollMode="always"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="8dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="8dp"
         android:scrollbarStyle="insideInset"
@@ -71,11 +68,9 @@
         android:layout_height="41dp"
         android:visibility="visible"
         android:animateLayoutChanges="true"
-        android:background="@color/white"
-        android:layout_marginStart="@dimen/very_small_margin"
-        android:layout_marginEnd="@dimen/very_small_margin"
-        android:paddingLeft="@dimen/very_small_margin"
-        android:paddingRight="@dimen/very_small_margin"
+        android:background="@color/translucent"
+        android:paddingLeft="@dimen/small_margin"
+        android:paddingRight="@dimen/small_margin"
         android:layout_below="@+id/content">
         <HorizontalScrollView
             android:id="@+id/auto_tag_suggestion"
