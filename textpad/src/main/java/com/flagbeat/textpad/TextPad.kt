@@ -217,7 +217,7 @@ class TextPad(
 		var contentText = getUnspannedTagsContentText(Html.toHtml(content.text), defaultTagColor)
 		if (!TextUtils.isEmpty(contentText)) {
 			for (peopleTag in selectedPeopleTags) {
-				contentText = contentText.replace(("@" + peopleTag.username), "@"+ peopleTag.id)
+				contentText = contentText.replace((peopleTag.username!!), "@"+ peopleTag.id)
 			}
 		}
 
@@ -271,7 +271,7 @@ class TextPad(
 
 	private fun getPeopleTagByUserName(username: String) : PeopleTag? {
 		for (peopleTag in selectedPeopleTags) {
-			if (username == "@" + peopleTag.username) {
+			if (username == peopleTag.username) {
 				return peopleTag
 			}
 		}
@@ -350,7 +350,11 @@ class TextPad(
 		content.threshold = 1
 
 		val tags = mutableListOf<Tag>()
-		suggestAdapter  = AutoCompleteAdapter(context, tags)
+		suggestAdapter  = AutoCompleteAdapter(context, tags) {
+			insertTagInView(it)
+
+		}
+
 		content.setAdapter(suggestAdapter)
 		renderOptionView(true)
 
@@ -502,6 +506,7 @@ class TextPad(
 	}
 
 	private fun insertTagInView(tag: Tag) {
+		Log.e(TAG, "insertTagInView = tag: $tag")
 		val selectedText: SelectedText? = getSelectedText()
 
 		if (null != selectedText) {
@@ -864,7 +869,7 @@ class TextPad(
 			var contentText = text
 			if (!TextUtils.isEmpty(text)) {
 				for (peopleTag in selectedPeopleTags) {
-					contentText = contentText.replace(("@" + peopleTag.id), "@"+ peopleTag.username)
+					contentText = contentText.replace(("@" + peopleTag.id), peopleTag.username!!)
 				}
 			}
 			return contentText
@@ -912,7 +917,7 @@ class TextPad(
 				val matcher: Matcher = regexPattern.matcher(contentText)
 				while (matcher.find()) {
 					val matchedText = matcher.group(1)!!.trim()
-					if (selectedHashTags.any { "#" + it.label == matchedText} || selectedPeopleTags.any{ "@" + it.username == matchedText}) {
+					if (selectedHashTags.any { it.label == matchedText} || selectedPeopleTags.any{ it.username == matchedText}) {
 						val startIndex = contentText.indexOf(matchedText)
 						val endIndex = startIndex + matchedText.length
 						val tag: Tag? = getTagByLabel(matchedText, selectedPeopleTags, selectedHashTags)

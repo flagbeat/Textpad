@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.row_people_tag.view.*
 
 class AutoCompleteAdapter(
     context: Context?,
-    private val tags: MutableList<Tag>
+    private val tags: MutableList<Tag>,
+    private val listener: (Tag) -> Unit
 ) : ArrayAdapter<String>(context!!, 0, tags.map { it.label }), Filterable {
 
     private var mFilter: ArrayFilter? = null
@@ -82,6 +83,10 @@ class AutoCompleteAdapter(
                 .error(R.drawable.avatar_big)
                 .centerCrop()
                 .into(itemView.avatar)
+        }
+
+        itemView.setOnClickListener{
+            listener(peopleTag)
         }
     }
 

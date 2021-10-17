@@ -48,7 +48,7 @@ class TagAdapter(
             itemView.name.text = peopleTag.label
             if (!TextUtils.isEmpty(peopleTag.username)) {
                 itemView.username.visibility = View.VISIBLE
-                itemView.username.text = "@" + peopleTag.username
+                itemView.username.text = peopleTag.username
             }
             else {
                 itemView.username.visibility = View.GONE
