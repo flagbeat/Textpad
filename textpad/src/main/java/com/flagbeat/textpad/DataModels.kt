@@ -42,7 +42,8 @@ data class SelectedText(
 @Keep
 data class ContentTheme(
     var themeCode: String,
-    var imageUrl: String,
     var textColor: String,
-    var hintColor: String
+    var hintColor: String,
+    var imageUrl: String? = null,
+    var bgColor: String? = null
 )

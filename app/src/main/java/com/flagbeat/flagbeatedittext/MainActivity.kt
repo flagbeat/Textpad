@@ -50,30 +50,44 @@ class MainActivity : AppCompatActivity(), OnInitTagListener {
         contentThemes.add(
             ContentTheme(
                 "theme_1",
-                "https://flagbeat.s3.ap-south-1.amazonaws.com/themes/theme_1.jpeg",
                 "#FFFFFF",
-                "#FFFF00"
+                "#FFFF00",
+                "https://flagbeat.s3.ap-south-1.amazonaws.com/themes/theme_1.jpeg",
         ))
         contentThemes.add(
             ContentTheme(
+                "theme_1",
+                "#FFFFFF",
+                "#FFFF00",
+                bgColor = "#800000",
+            ))
+        contentThemes.add(
+            ContentTheme(
                 "theme_2",
-                "https://flagbeat.s3.ap-south-1.amazonaws.com/themes/theme_2.jpeg",
                 "#e6e600",
-                "#ffffcc"
+                "#ffffcc",
+                "https://flagbeat.s3.ap-south-1.amazonaws.com/themes/theme_2.jpeg",
+            ))
+        contentThemes.add(
+            ContentTheme(
+                "theme_1",
+                "#FFFFFF",
+                "#FFFF00",
+                bgColor = "#808000",
             ))
         contentThemes.add(
             ContentTheme(
                 "theme_3",
-                "https://flagbeat.s3.ap-south-1.amazonaws.com/themes/theme_3.jpeg",
                 "#ff1a1a",
-                "#ffcccc"
+                "#ffcccc",
+                "https://flagbeat.s3.ap-south-1.amazonaws.com/themes/theme_3.jpeg",
             ))
         contentThemes.add(
             ContentTheme(
                 "theme_4",
-                "https://flagbeat.s3.ap-south-1.amazonaws.com/themes/theme_4.jpeg",
                 "#0099ff",
-                "#ccebff"
+                "#ccebff",
+                "https://flagbeat.s3.ap-south-1.amazonaws.com/themes/theme_4.jpeg",
             ))
         edit_text.setContentThemes(contentThemes)
 

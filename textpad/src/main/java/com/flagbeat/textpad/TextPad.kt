@@ -397,11 +397,28 @@ class TextPad(
 			change_bg_button.setOnClickListener{
 				selectedThemeIndex = (selectedThemeIndex + 1) % contentThemes.size
 
-				Picasso.get()
-					.load(contentThemes[selectedThemeIndex].imageUrl)
-					.fit()
-					.error(R.drawable.textpad_bg)
-					.into(content_bg)
+				if (null != contentThemes[selectedThemeIndex].bgColor) {
+					content_bg.setColorFilter(Color.parseColor(
+						contentThemes[selectedThemeIndex].bgColor
+					))
+				}
+				else {
+					content_bg.clearColorFilter()
+				}
+
+				if (null != contentThemes[selectedThemeIndex].imageUrl) {
+					contentThemes[selectedThemeIndex].imageUrl?.let {
+						Picasso.get()
+							.load(it)
+							.fit()
+							.error(R.drawable.textpad_bg)
+							.into(content_bg)
+					}
+				}
+				else {
+					content_bg.setImageURI(null)
+				}
+
 
 				content.setTextColor(Color.parseColor(contentThemes[selectedThemeIndex].textColor))
 				content.setHintTextColor(Color.parseColor(contentThemes[selectedThemeIndex].hintColor))
